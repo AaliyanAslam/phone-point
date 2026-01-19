@@ -124,7 +124,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className="group flex items-center justify-between p-4 rounded-xl transition-all hover:bg-[#822A63]/5"
               >
-                <span className={`text-sm xs:text-lg font-semibold text-gray-800 group-hover:text-[#822A63] transition-colors ${inter.className}`}>
+                <span className={`text-sm xs:text-lg font-semibold text-gray-700 group-hover:text-[#822A63] transition-colors ${inter.className}`}>
                 
     {link.name}
                 </span>
