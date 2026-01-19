@@ -124,8 +124,9 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className="group flex items-center justify-between p-4 rounded-xl transition-all hover:bg-[#822A63]/5"
               >
-                <span className={`text-base xs:text-lg font-bold text-gray-800 group-hover:text-[#822A63] transition-colors ${inter.className}`}>
-                  {link.name}
+                <span className={`text-sm xs:text-lg font-semibold text-gray-800 group-hover:text-[#822A63] transition-colors ${inter.className}`}>
+                
+    {link.name}
                 </span>
                 <ArrowRight size={18} className="text-[#822A63] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
               </Link>
