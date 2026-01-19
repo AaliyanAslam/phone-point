@@ -102,7 +102,7 @@ const Navbar = () => {
         <div className="flex flex-col h-full font-sans">
           
           {/* Mobile Header */}
-          <div className="p-5 flex justify-between items-center border-b">
+          <div className="p-5 flex justify-between items-center border-gray-200 border-b">
             <Link href="/" className="flex items-center">
                 <img 
                   src="/logo/brand.png" 
@@ -134,13 +134,13 @@ const Navbar = () => {
           </nav>
 
           {/* Mobile Footer */}
-          <div className="p-6 bg-gray-50 border-t">
+          <div className={`p-6 bg-gray-50 ${inter.className}`}>
             <div className="space-y-3">
-              <Link href="/account" className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-gray-100">
+              <Link href="/account" className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-200">
                 <div className="p-2 bg-[#822A63]/10 text-[#822A63] rounded-lg"><User size={18} /></div>
                 <span className="text-sm xs:text-base font-semibold text-gray-700">Account</span>
               </Link>
-              <Link href="/wishlist" className="flex items-center gap-3 p-3 bg-white rounded-xl shadow-sm border border-gray-100">
+              <Link href="/wishlist" className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-200">
                 <div className="p-2 bg-pink-50 text-pink-600 rounded-lg"><Heart size={18} /></div>
                 <span className="text-sm xs:text-base font-semibold text-gray-700">Wishlist</span>
               </Link>
