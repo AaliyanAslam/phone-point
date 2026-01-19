@@ -124,7 +124,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className="group flex items-center justify-between p-4 rounded-xl transition-all hover:bg-[#822A63]/5"
               >
-                <span className={`text-sm xs:text-lg font-semibold text-gray-700 group-hover:text-[#822A63] transition-colors ${inter.className}`}>
+                <span className={`text-sm xs:text-lg font-medium text-gray-700 group-hover:text-[#822A63] transition-colors ${inter.className}`}>
                 
     {link.name}
                 </span>
@@ -136,13 +136,13 @@ const Navbar = () => {
           {/* Mobile Footer */}
           <div className={`p-6 bg-gray-50 ${inter.className}`}>
             <div className="space-y-3">
-              <Link href="/account" className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-200">
+              <Link href="/account" className="flex items-center gap-3 p-3 bg-white border-b border-gray-200">
                 <div className="p-2 bg-[#822A63]/10 text-[#822A63] rounded-lg"><User size={18} /></div>
-                <span className="text-sm xs:text-base font-semibold text-gray-700">Account</span>
+                <span className="text-sm xs:text-base font-medium text-gray-700">Account</span>
               </Link>
-              <Link href="/wishlist" className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-200">
+              <Link href="/wishlist" className="flex items-center gap-3 p-3 bg-white rounded-xl ">
                 <div className="p-2 bg-pink-50 text-pink-600 rounded-lg"><Heart size={18} /></div>
-                <span className="text-sm xs:text-base font-semibold text-gray-700">Wishlist</span>
+                <span className="text-sm xs:text-base font-medium text-gray-700">Wishlist</span>
               </Link>
             </div>
           </div>
