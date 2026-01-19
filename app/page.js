@@ -5,8 +5,8 @@ import AllMobiles from "@/components/AllMobiles";
 export default function page() {
   return (
   <>
-  <Link href="/admin/add-mobile">Add Mobile</Link>
-  <AllMobiles/>
+  {/* <Link href="/admin/add-mobile">Add Mobile</Link> */}
+  {/* <AllMobiles/> */}
   </>
 
   );
