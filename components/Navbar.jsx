@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, ShoppingCart, Search, User, Heart, ArrowRight } from 'lucide-react';
+import {Inter} from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'] });
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +62,9 @@ const Navbar = () => {
                   href={link.href}
                   className="relative px-4 py-2 text-sm lg:text-base font-medium text-gray-600 hover:text-black transition-colors group"
                 >
-                  {link.name}
+                  <span className={`${inter.className}`}>
+                    {link.name}
+                  </span>
                   <span className="absolute inset-x-4 bottom-1 h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
                 </Link>
               ))}
