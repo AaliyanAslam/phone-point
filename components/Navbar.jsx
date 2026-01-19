@@ -93,19 +93,23 @@ const Navbar = () => {
 
       {/* Mobile Overlay */}
       <div 
-        className={`fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`} 
+        className={`fixed inset-0 z-60 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`} 
         onClick={() => setIsOpen(false)} 
       />
 
       {/* Mobile Drawer */}
-      <aside className={`fixed top-0 left-0 bottom-0 w-[80%] max-w-xs z-[70] bg-white shadow-2xl transform transition-transform duration-500 ease-in-out md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <aside className={`fixed top-0 left-0 bottom-0 w-[80%] max-w-xs z-70 bg-white shadow-2xl transform transition-transform duration-500 ease-in-out md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
         <div className="flex flex-col h-full font-sans">
           
           {/* Mobile Header */}
           <div className="p-5 flex justify-between items-center border-b">
-            <span className={`text-xl font-black tracking-tighter ${inter.className}`}>
-              STORE<span className="text-[#822A63]">.</span>
-            </span>
+            <Link href="/" className="flex items-center">
+                <img 
+                  src="/logo/brand.png" 
+                  alt="Store Logo" 
+                  className="h-8 w-auto xs:h-10 md:h-11 object-contain" 
+                />
+              </Link>
             <button onClick={() => setIsOpen(false)} className="p-2 text-gray-500 hover:bg-gray-100 rounded-full">
               <X size={24} />
             </button>
@@ -120,7 +124,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className="group flex items-center justify-between p-4 rounded-xl transition-all hover:bg-[#822A63]/5"
               >
-                <span className="text-base xs:text-lg font-bold text-gray-800 group-hover:text-[#822A63] transition-colors">
+                <span className={`text-base xs:text-lg font-bold text-gray-800 group-hover:text-[#822A63] transition-colors ${inter.className}`}>
                   {link.name}
                 </span>
                 <ArrowRight size={18} className="text-[#822A63] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
