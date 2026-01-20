@@ -1,18 +1,19 @@
 "use client";
 import WhatsAppButton from "@/components/WhatsappBtn";
 
+
 export default function MobileCard({ mobile }) {
   const inStock = mobile.stock > 0;
 
   return (
-    <div className="group relative flex flex-col h-full bg-white dark:bg-slate-900 
-      border border-slate-200/60 dark:border-slate-800/60 
+    <div className="group relative flex flex-col h-full bg-white 
+      border border-[#822A63]
       rounded-2xl overflow-hidden 
       transition-all duration-500 
-      hover:-translate-y-1 hover:shadow-xl">
+      hover:-translate-y-1 hover:shadow-xl ">
 
       {/* IMAGE */}
-      <div className="relative aspect-[3/4] sm:aspect-square overflow-hidden bg-slate-100 dark:bg-slate-800">
+      <div className="relative aspect-[3/4] sm:aspect-square overflow-hidden bg-slate-100">
         <img
           src={mobile.image}
           alt={mobile.name}
