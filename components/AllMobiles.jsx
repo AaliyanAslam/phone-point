@@ -5,14 +5,26 @@ import { useMobiles } from "@/app/hooks/useMobile.js";
 export default function MostSellingMobiles() {
   const { mobiles, loading } = useMobiles();
 
-  if (loading) return <p className="text-center mt-10">Loading Top Sellers...</p>;
+  if (loading)
+    return <p className="text-center mt-10">Loading Top Sellers...</p>;
 
   return (
     <div className="p-6 mx-auto max-w-7xl">
-      <h2 className="text-2xl font-bold mb-6">Most Selling Mobiles</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <h2 className="text-2xl font-bold mb-6">
+        Most Selling Mobiles
+      </h2>
+
+      {/* HORIZONTAL SCROLL */}
+      <div className="flex gap-6 overflow-x-auto pb-4 scroll-smooth
+        scrollbar-hide">
+
         {mobiles.map((mobile) => (
-          <MobileCard key={mobile.id} mobile={mobile} />
+          <div
+            key={mobile.id}
+            className="min-w-70 sm:min-w-[320px] md:min-w-85"
+          >
+            <MobileCard mobile={mobile} />
+          </div>
         ))}
       </div>
     </div>
