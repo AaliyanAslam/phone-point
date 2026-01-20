@@ -7,8 +7,8 @@ export default function page() {
   return (
     <>
       {/* <Link href="/admin/add-mobile">Add Mobile</Link> */}
-      {/* <AllMobiles/> */}
       <Hero />
+      <AllMobiles />
     </>
   );
 }
