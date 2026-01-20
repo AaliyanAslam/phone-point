@@ -10,7 +10,7 @@ export default function MostSellingMobiles() {
   return (
     <div className="p-6 mx-auto max-w-7xl">
       <h2 className="text-2xl font-bold mb-6">Most Selling Mobiles</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {mobiles.map((mobile) => (
           <MobileCard key={mobile.id} mobile={mobile} />
         ))}
