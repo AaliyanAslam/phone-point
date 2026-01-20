@@ -15,13 +15,18 @@ export default function MostSellingMobiles() {
       </h2>
 
       {/* HORIZONTAL SCROLL */}
-      <div className="flex gap-6 overflow-x-auto pb-4 scroll-smooth
+      <div className="flex gap-4 overflow-x-auto pb-4 scroll-smooth
         scrollbar-hide">
 
         {mobiles.map((mobile) => (
           <div
             key={mobile.id}
-            className="min-w-70 sm:min-w-[320px] md:min-w-85"
+          className="
+  min-w-60
+  sm:min-w-70
+  md:min-w-[320px]
+"
+
           >
             <MobileCard mobile={mobile} />
           </div>

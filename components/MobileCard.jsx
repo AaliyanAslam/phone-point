@@ -47,16 +47,16 @@ export default function MobileCard({ mobile }) {
 >
 
         <div className="space-y-1 mb-4">
-          <p className="text-blue-600 dark:text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+          <p className="text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-[0.2em]">
             {mobile.brand}
           </p>
-          <h2 className="text-slate-900 dark:text-white text-xl font-medium leading-tight  transition-colors">
+          <h2 className="text-white text-sm  leading-tight  ">
             {mobile.name}
           </h2>
         </div>
 
         {/* 3. DYNAMIC FOOTER */}
-        <div className="mt-auto pt-5 border-t border-slate-100 dark:border-slate-800 flex items-end justify-between">
+        <div className="mt-auto pt-2 border-t border-slate-100 dark:border-slate-800 flex items-end justify-between">
           <div className="flex flex-col">
             <span className="text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">
               Best Price
@@ -68,20 +68,19 @@ export default function MobileCard({ mobile }) {
             </div>
           </div>
 
-          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full border ${
+          <div className={`flex items-center gap-2 px-3 py-1 rounded-full border ${
             inStock 
               ? "border-emerald-100 bg-emerald-50 dark:bg-emerald-500/10 dark:border-emerald-500/20" 
               : "border-slate-100 bg-slate-50 dark:bg-slate-800 dark:border-slate-700"
           }`}>
-            <span className={`w-2 h-2 rounded-full ${inStock ? "bg-emerald-500 animate-pulse" : "bg-slate-400"}`} />
-            <span className={`text-[11px] font-bold uppercase tracking-tight ${inStock ? "text-emerald-700 dark:text-emerald-400" : "text-slate-500"}`}>
+            <span className={`text-[8px] font-medium uppercase tracking-tight ${inStock ? "text-emerald-700 dark:text-emerald-400" : "text-slate-500"}`}>
               {inStock ? "In Stock" : "Sold Out"}
             </span>
           </div>
         </div>
 
         {/* 4. BUTTON WITH HOVER EFFECT */}
-        <div className="mt-6 transform transition-transform duration-300 group-hover:scale-[1.02]">
+        <div className="mt-3 transform transition-transform duration-300 group-hover:scale-[1.02]">
           <WhatsAppButton name={mobile.name} price={mobile.price} />
         </div>
       </div>
