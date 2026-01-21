@@ -4,6 +4,7 @@ import MobileCard from "@/components/MobileCard";
 import { useMobiles } from "@/app/hooks/useMobile.js";
 import { Inter } from "next/font/google";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ const SkeletonCard = () => (
 export default function MostSellingMobiles() {
   const { mobiles, loading } = useMobiles();
   const scrollRef = useRef(null);
+  const router = useRouter();
 
   const scroll = (dir) => {
     if (!scrollRef.current) return;
@@ -72,7 +74,7 @@ export default function MostSellingMobiles() {
       {/* --- SEE MORE BUTTON --- */}
       <div className="flex items-center justify-center min-w-37.5 sm:min-w-50 pr-4">
         <button
-          onClick={() => router.push("/mobiles")} // or your target path
+          onClick={() => router.push("/all-mobiles")} // or your target path
           className="group/btn flex flex-col items-center gap-3 transition-all duration-300 hover:scale-105"
         >
           <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-linear-to-br from-[#2C0741] to-[#6348A6] flex items-center justify-center shadow-lg group-hover/btn:shadow-purple-500/40 text-white">
