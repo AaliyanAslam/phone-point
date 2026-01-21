@@ -1,10 +1,35 @@
 @import "tailwindcss";
 
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+/* 🌈 Themed horizontal scrollbar */
+.scrollbar-theme {
+  scrollbar-width: thin;
+  scrollbar-color: #4B2050 transparent;
 }
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+/* Chrome / Edge / Safari */
+.scrollbar-theme::-webkit-scrollbar {
+  height: 8px; /* horizontal scrollbar height */
+}
+
+.scrollbar-theme::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-theme::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    135deg,
+    #2C0741,
+    #4B2050,
+    #6348A6
+  );
+  border-radius: 999px;
+}
+
+.scrollbar-theme::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    135deg,
+    #4B2050,
+    #6348A6
+  );
 }

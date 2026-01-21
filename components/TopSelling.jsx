@@ -1,6 +1,8 @@
 "use client";
 import MobileCard from "@/components/MobileCard";
 import { useMobiles } from "@/app/hooks/useMobile.js";
+import { Inter } from "next/font/google";
+const inter = Inter({ subsets: ["latin"] });
 
 // --- SKELETON COMPONENT ---
 const SkeletonCard = () => (
@@ -15,12 +17,28 @@ export default function MostSellingMobiles() {
   const { mobiles, loading } = useMobiles();
 
   return (
-    <div className="p-6 mx-auto max-w-7xl">
-      <h2 className="text-2xl font-bold mb-6">
-        Most Selling Mobiles
-      </h2>
+    <div className="p-6 mx-auto max-w-7xl mt-12 ">
+   <h2 className={`relative mb-8 text-3xl sm:text-4xl font-extrabold tracking-tight ${inter.className}`}>
+  <span className="
+    bg-linear-to-r
+    from-[#2C0741] via-[#4B2050] to-[#6348A6]
+    bg-clip-text text-transparent
+  ">
+    Most Selling Mobiles
+  </span>
 
-      <div className="flex gap-4 overflow-x-auto pb-4 scroll-smooth scrollbar-hide">
+  {/* underline glow */}
+  <span className="
+    absolute -bottom-2 left-0
+    w-20 h-1 rounded-full
+    bg-linear-to-r
+    from-[#2C0741] to-[#6348A6]
+  " />
+</h2>
+
+
+      <div className="flex gap-4 overflow-x-auto pb-4 scroll-smooth scrollbar-theme"
+>
         
         {loading ? (
           Array.from({ length: 4 }).map((_, index) => (
