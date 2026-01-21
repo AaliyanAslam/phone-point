@@ -2,6 +2,8 @@
 import WhatsAppButton from "@/components/WhatsappBtn";
 import { Flame, Clock } from "lucide-react";
 import { Inter } from 'next/font/google';
+import Image from "next/image";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,11 +30,15 @@ export default function MobileCard({ mobile }) {
       <div className="relative aspect-square sm:aspect-5/5 overflow-hidden bg-white">
         <div className="absolute inset-0 bg-linear-to-t from-black/5 to-transparent z-10 pointer-events-none" />
         
-        <img
+      <Link href={`/mobile/${mobile.id}`} className="block w-full h-full relative">
+        <Image
+        fill
           src={mobile.image}
           alt={mobile.name}
           className="w-full h-full object-contain p-4 sm:p-8 transition-transform duration-500 group-hover:scale-105"
         />
+      
+      </Link>
 
         {/* FLOATING CHIPS */}
         <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20">
