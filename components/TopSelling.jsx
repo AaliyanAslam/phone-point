@@ -52,23 +52,48 @@ export default function MostSellingMobiles() {
         </button>
 
         {/* SCROLL AREA */}
+       <div
+  ref={scrollRef}
+  className="flex gap-4 sm:gap-6 overflow-x-auto pb-8 scroll-smooth scrollbar-theme px-1 w-full"
+>
+  {loading && mobiles.length === 0 ? (
+    Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)
+  ) : (
+    <>
+      {mobiles?.slice(0, 5).map((mobile) => (
         <div
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto pb-8 scroll-smooth scrollbar-theme  px-1 w-full"
+          key={mobile.id}
+          className="min-w-60 sm:min-w-70 md:min-w-[320px] transition-transform duration-300 hover:-translate-y-2"
         >
-          {loading && mobiles.length === 0 ? (
-            Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)
-          ) : (
-            mobiles?.slice(0, 8).map((mobile) => (
-              <div
-                key={mobile.id}
-                className="min-w-60 sm:min-w-70 md:min-w-[320px] transition-transform duration-300 hover:-translate-y-2"
-              >
-                <MobileCard mobile={mobile} />
-              </div>
-            ))
-          )}
+          <MobileCard mobile={mobile} />
         </div>
+      ))}
+
+      {/* --- SEE MORE BUTTON --- */}
+      <div className="flex items-center justify-center min-w-[150px] sm:min-w-[200px] pr-4">
+        <button
+          onClick={() => router.push("/mobiles")} // or your target path
+          className="group/btn flex flex-col items-center gap-3 transition-all duration-300 hover:scale-105"
+        >
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-linear-to-br from-[#2C0741] to-[#6348A6] flex items-center justify-center shadow-lg group-hover/btn:shadow-purple-500/40 text-white">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" viewBox="0 0 24 24" 
+              strokeWidth={2.5} 
+              stroke="currentColor" 
+              className="w-6 h-6 sm:w-8 sm:h-8 group-hover/btn:translate-x-1 transition-transform"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </div>
+          <span className="text-xs sm:text-sm font-bold bg-linear-to-r from-[#2C0741] to-[#6348A6] bg-clip-text text-transparent uppercase tracking-widest">
+            See More
+          </span>
+        </button>
+      </div>
+    </>
+  )}
+</div>
 
         {/* RIGHT BUTTON */}
         <button
