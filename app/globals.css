@@ -33,3 +33,32 @@
     #6348A6
   );
 }
+/* Container helps manage the speed and layout */
+.marquee-container {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+/* Pause on hover for better UX */
+.marquee-container:hover {
+  animation-play-state: paused;
+}
+
+/* The actual animation logic */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Moves the text left. -50% works perfectly when content is duplicated */
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive adjustment: Faster scroll on small screens if needed */
+@media (max-width: 640px) {
+  .marquee-container {
+    animation-duration: 20s;
+  }
+}
