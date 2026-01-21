@@ -20,15 +20,19 @@ export default function DealContinueMarquee() {
         {[...Array(6)].map((_, i) => (
           <span
             key={i}
-            className={`marquee-content px-4 text-sm sm:text-lg md:text-lg font-semibold tracking-wide ${inter.className}
+            className={`marquee-content px-4 text-xs sm:text-lg md:text-lg font-semibold tracking-wide ${inter.className}
               bg-linear-to-r from-[#9f7aea] via-[#b794f4] to-[#805ad5]
               bg-clip-text text-transparent`}
           >
-<span className="flex ">
-           <Flame color="red" fill="red"/> {text}  
-    
-    
-    </span>          </span>
+<span className="flex items-center gap-1 text-sm md:text-base lg:text-lg font-medium">
+  {/* The icon now scales from 14px (w-3.5) on mobile to 18px (md:w-4.5) on desktop */}
+  <Flame 
+    className="w-3.5 h-3.5 md:w-4.5 md:h-4.5 lg:w-5 lg:h-5" 
+    color="red" 
+    fill="red" 
+  /> 
+  {text}
+</span>        </span>
         ))}
       </div>
     
