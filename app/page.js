@@ -3,6 +3,7 @@ import Link from "next/link";
 import AllMobiles from "@/components/TopSelling";
 import Hero from "@/components/Hero";
 import DealContinueMarquee from "@/components/ui/DealContinueMarquee";
+import DealsMobiles from "@/components/DealsMobiles";
 
 export default function page() {
   return (
@@ -10,6 +11,7 @@ export default function page() {
       <DealContinueMarquee />
       <Hero />
       <AllMobiles />
+      <DealsMobiles/>
     </>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flame, UploadCloud, Smartphone } from "lucide-react";
+import { Flame, UploadCloud, Smartphone, Clock, Tag } from "lucide-react";
 
 export default function AddMobilePage() {
   const router = useRouter();
@@ -14,10 +14,12 @@ export default function AddMobilePage() {
     name: "",
     brand: "",
     price: "",
+    oldPrice: "", // New Field
+    dealDuration: "1", // New Field (Default 1 day)
     stock: "",
     description: "",
     features: "",
-    category: "deals", // Default category
+    category: "deals",
   });
 
   const handleChange = (e) => {
@@ -40,7 +42,6 @@ export default function AddMobilePage() {
     setLoading(true);
 
     try {
-      // 1. Upload to Cloudinary
       const uploadRes = await fetch("/api/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -48,13 +49,14 @@ export default function AddMobilePage() {
       });
       const uploadData = await uploadRes.json();
 
-      // 2. Save to Firebase
       await fetch("/api/mobiles", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
           price: Number(form.price),
+          oldPrice: form.category === "deals" ? Number(form.oldPrice) : null,
+          dealDuration: form.category === "deals" ? `${form.dealDuration} Day(s)` : null,
           stock: Number(form.stock),
           features: form.features.split(",").map((f) => f.trim()),
           image: uploadData.url,
@@ -63,18 +65,18 @@ export default function AddMobilePage() {
 
       alert("Mobile Added Successfully! 🔥");
       router.refresh();
-      setForm({ name: "", brand: "", price: "", stock: "", description: "", features: "", category: "deals" });
+      // Reset form including new fields
+      setForm({ name: "", brand: "", price: "", oldPrice: "", dealDuration: "1", stock: "", description: "", features: "", category: "deals" });
       setPreview("");
     } catch (err) {
       alert("Error adding mobile");
-      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const inputStyle = "w-full p-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all";
-  const labelStyle = "block mb-1.5 text-sm font-semibold text-gray-700";
+  const inputStyle = "w-full p-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none transition-all";
+  const labelStyle = "flex items-center gap-2 mb-1.5 text-sm font-semibold text-gray-700";
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
@@ -86,13 +88,11 @@ export default function AddMobilePage() {
 
         <form onSubmit={handleSubmit} className="p-8 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Product Name */}
             <div>
               <label className={labelStyle}>Product Name</label>
               <input name="name" value={form.name} className={inputStyle} onChange={handleChange} placeholder="e.g. iPhone 15 Pro" required />
             </div>
 
-            {/* Category Selection */}
             <div>
               <label className={labelStyle}>Display Category</label>
               <select name="category" value={form.category} className={inputStyle} onChange={handleChange}>
@@ -101,21 +101,47 @@ export default function AddMobilePage() {
                 <option value="cheap">💰 Budget Friendly</option>
               </select>
             </div>
+          </div>
 
+          {/* --- CONDITIONAL FIELDS FOR DEALS --- */}
+          {form.category === "deals" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-orange-50 rounded-2xl border border-orange-100 animate-in fade-in slide-in-from-top-2">
+              <div>
+                <label className={labelStyle}><Tag size={16} className="text-orange-500" /> Original Price (Old)</label>
+                <input 
+                  name="oldPrice" 
+                  type="number" 
+                  value={form.oldPrice} 
+                  className={inputStyle} 
+                  onChange={handleChange} 
+                  placeholder="Before discount"
+                  required={form.category === "deals"}
+                />
+              </div>
+              <div>
+                <label className={labelStyle}><Clock size={16} className="text-orange-500" /> Deal Duration</label>
+                <select name="dealDuration" value={form.dealDuration} className={inputStyle} onChange={handleChange}>
+                  <option value="1">1 Day</option>
+                  <option value="2">2 Days</option>
+                  <option value="3">3 Days</option>
+                  <option value="7">1 Week</option>
+                </select>
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className={labelStyle}>Brand</label>
               <input name="brand" value={form.brand} className={inputStyle} onChange={handleChange} placeholder="Apple, Samsung..." />
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className={labelStyle}>Price ($)</label>
-                <input name="price" type="number" value={form.price} className={inputStyle} onChange={handleChange} required />
-              </div>
-              <div>
-                <label className={labelStyle}>Stock</label>
-                <input name="stock" type="number" value={form.stock} className={inputStyle} onChange={handleChange} required />
-              </div>
+            <div>
+              <label className={labelStyle}>Current Price ($)</label>
+              <input name="price" type="number" value={form.price} className={inputStyle} onChange={handleChange} required />
+            </div>
+            <div>
+              <label className={labelStyle}>Stock</label>
+              <input name="stock" type="number" value={form.stock} className={inputStyle} onChange={handleChange} required />
             </div>
           </div>
 
@@ -143,7 +169,7 @@ export default function AddMobilePage() {
             type="submit"
             disabled={loading}
             className={`w-full py-4 rounded-xl font-bold text-white transition-all ${
-              loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200"
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-purple-600 hover:bg-purple-700 shadow-lg shadow-purple-200"
             }`}
           >
             {loading ? "Processing..." : "Publish Product"}
