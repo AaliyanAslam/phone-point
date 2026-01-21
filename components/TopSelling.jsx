@@ -18,7 +18,7 @@ export default function MostSellingMobiles() {
 
   return (
     <div className="p-6 mx-auto max-w-7xl mt-12 ">
-   <h2 className={`relative mb-8 text-3xl sm:text-4xl font-extrabold tracking-tight ${inter.className}`}>
+   <h2 className={`relative mb-8 text-3xl sm:text-4xl font-bold  tracking-tight ${inter.className}`}>
   <span className="
     bg-linear-to-r
     from-[#2C0741] via-[#4B2050] to-[#6348A6]
