@@ -51,7 +51,7 @@ export default function MobileCard({ mobile }) {
           <p className="text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-[0.2em]">
             {mobile.brand}
           </p>
-          <h2 className="text-white text-sm  leading-tight  ">
+          <h2 className="text-white text-sm font-normal leading-tight  ">
             {mobile.name}
           </h2>
         </div>
@@ -63,8 +63,8 @@ export default function MobileCard({ mobile }) {
               Best Price
             </span>
             <div className="flex items-center gap-1">
-              <span className="text-sm font-semibold text-slate-900 dark:text-white">
-                ${mobile.price}
+              <span className="text-sm font-medium text-slate-900 dark:text-white">
+                Rs {mobile.price}
               </span>
             </div>
           </div>
