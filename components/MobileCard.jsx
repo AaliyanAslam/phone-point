@@ -12,6 +12,16 @@ export default function MobileCard({ mobile }) {
   return (
     <div className={`group relative flex flex-col h-full rounded-xl overflow-hidden border border-[#e5a8ec] ${inter.className}`}>
       
+      {/* --- DEAL ENDS IN BADGE (TOP CENTER ATTACHED) --- */}
+      {isDeal && mobile.dealDuration && (
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 z-30">
+          <div className="bg-linear-to-r from-[#2C0741] to-[#6348A6] text-white text-[9px] font-bold px-4 py-1 rounded-b-lg shadow-md border-x border-b border-purple-400/30 flex items-center gap-1.5 whitespace-nowrap">
+            <Clock size={11} className="text-purple-300 animate-pulse" />
+            <span>DEAL ENDS IN: {mobile.dealDuration}</span>
+          </div>
+        </div>
+      )}
+
       {/* 1. VISUAL ANCHOR (IMAGE) */}
       <div className="relative aspect-5/5 overflow-hidden bg-white">
         <div className="absolute inset-0 bg-linear-to-t from-black/5 to-transparent z-10 pointer-events-none" />
@@ -25,16 +35,8 @@ export default function MobileCard({ mobile }) {
         {/* FLOATING CHIPS */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-20">
           <span className="backdrop-blur-md bg-white/40 text-slate-900 text-[10px] font-bold px-3 py-1.5 rounded-full shadow-sm border border-white/20 uppercase tracking-tighter flex items-center">
-            <Flame fill="red" className="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-red-600 mr-1" /> Hot selling
+            <Flame fill="red" className="w-3.5 h-3.5 md:w-4.5 md:h-4.5 text-red-600 mr-1" /> {mobile.category}
           </span>
-          
-          {/* DEAL EXPIRY BADGE (Top Right) */}
-          {isDeal && mobile.dealDuration && (
-            <span className="bg-[#4B2050] text-white text-[9px] font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse border border-purple-300/30">
-              <Clock size={12} className="text-purple-300" />
-              Ends in {mobile.dealDuration}
-            </span>
-          )}
         </div>
       </div>
 
@@ -61,7 +63,7 @@ export default function MobileCard({ mobile }) {
                 Rs {mobile.price}
               </span>
               
-              {/* OLD PRICE (Right side of current price) */}
+              {/* OLD PRICE */}
               {isDeal && mobile.oldPrice && (
                 <span className="text-[11px] text-slate-400 line-through decoration-red-500/50">
                   Rs {mobile.oldPrice}

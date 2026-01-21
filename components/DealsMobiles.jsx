@@ -53,7 +53,7 @@ export default function DealsMobiles() {
           onClick={() => scroll("left")}
           className="absolute -left-5 top-1/2 -translate-y-1/2 z-30 hidden md:flex 
           items-center justify-center w-12 h-12 rounded-full bg-white shadow-xl border
-          hover:scale-110 transition-all opacity-0 group-hover:opacity-100 text-[#4B2050]"
+           transition-all opacity-0 group-hover:opacity-100 text-[#4B2050]"
         >
           <ChevronLeft size={28} strokeWidth={2.5} />
         </button>
@@ -69,7 +69,7 @@ export default function DealsMobiles() {
             dealMobiles.slice(0, 8).map((mobile) => (
               <div
                 key={mobile.id}
-                className="min-w-60 sm:min-w-70 md:min-w-[320px] hover:-translate-y-2 transition-transform"
+                className="min-w-60 sm:min-w-70 md:min-w-[320px]  transition-transform"
               >
                 <MobileCard mobile={mobile} />
               </div>
