@@ -10,7 +10,7 @@ const ProductPage = async ({ params }) => {
   const { id } = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
   
-  const res = await fetch(`/api/mobiles/${id}`, {
+  const res = await fetch(`${baseUrl}/api/mobiles/${id}`, {
     cache: "no-store",
   });
 
