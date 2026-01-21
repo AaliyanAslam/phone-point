@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Flame, UploadCloud, Smartphone } from "lucide-react";
 
 export default function AddMobilePage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [preview, setPreview] = useState("");
+  const [image, setImage] = useState("");
 
   const [form, setForm] = useState({
     name: "",
@@ -13,10 +17,8 @@ export default function AddMobilePage() {
     stock: "",
     description: "",
     features: "",
+    category: "deals", // Default category
   });
-  const [image, setImage] = useState("");
-  const [preview, setPreview] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,7 +27,6 @@ export default function AddMobilePage() {
   const handleImage = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreview(reader.result);
@@ -39,7 +40,7 @@ export default function AddMobilePage() {
     setLoading(true);
 
     try {
-      // 1️⃣ Upload image to Cloudinary
+      // 1. Upload to Cloudinary
       const uploadRes = await fetch("/api/upload", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -47,7 +48,7 @@ export default function AddMobilePage() {
       });
       const uploadData = await uploadRes.json();
 
-      // 2️⃣ Save mobile data to Firebase
+      // 2. Save to Firebase
       await fetch("/api/mobiles", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -60,63 +61,92 @@ export default function AddMobilePage() {
         }),
       });
 
-      alert("Mobile added successfully ✅");
-      setForm({ name: "", brand: "", price: "", stock: "", description: "", features: "" });
-      setImage("");
+      alert("Mobile Added Successfully! 🔥");
+      router.refresh();
+      setForm({ name: "", brand: "", price: "", stock: "", description: "", features: "", category: "deals" });
       setPreview("");
     } catch (err) {
-      alert("Something went wrong ❌");
+      alert("Error adding mobile");
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const inputStyle = "w-full p-2.5 border border-gray-300 rounded-lg outline-none";
-  const labelStyle = "block mb-1 font-medium text-gray-700";
+  const inputStyle = "w-full p-3 bg-gray-50 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all";
+  const labelStyle = "block mb-1.5 text-sm font-semibold text-gray-700";
 
   return (
-    <div className="min-h-screen flex justify-center items-start pt-10 bg-gray-100">
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-2xl">
-        <h1 className="text-2xl font-bold mb-6">Add New Mobile</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className={labelStyle}>Product Name</label>
-            <input name="name" className={inputStyle} onChange={handleChange} required />
-          </div>
-          <div>
-            <label className={labelStyle}>Brand</label>
-            <input name="brand" className={inputStyle} onChange={handleChange} />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
+    <div className="min-h-screen bg-gray-50 py-12 px-4">
+      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-[#0f0a1f] p-6 text-white flex items-center gap-3">
+          <Smartphone className="text-purple-400" />
+          <h1 className="text-xl font-bold">Inventory Management</h1>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Product Name */}
             <div>
-              <label className={labelStyle}>Price</label>
-              <input name="price" type="number" className={inputStyle} onChange={handleChange} required />
+              <label className={labelStyle}>Product Name</label>
+              <input name="name" value={form.name} className={inputStyle} onChange={handleChange} placeholder="e.g. iPhone 15 Pro" required />
             </div>
+
+            {/* Category Selection */}
             <div>
-              <label className={labelStyle}>Stock</label>
-              <input name="stock" type="number" className={inputStyle} onChange={handleChange} />
+              <label className={labelStyle}>Display Category</label>
+              <select name="category" value={form.category} className={inputStyle} onChange={handleChange}>
+                <option value="deals">🔥 Flash Deals</option>
+                <option value="most-selling">⭐ Most Selling</option>
+                <option value="cheap">💰 Budget Friendly</option>
+              </select>
+            </div>
+
+            <div>
+              <label className={labelStyle}>Brand</label>
+              <input name="brand" value={form.brand} className={inputStyle} onChange={handleChange} placeholder="Apple, Samsung..." />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={labelStyle}>Price ($)</label>
+                <input name="price" type="number" value={form.price} className={inputStyle} onChange={handleChange} required />
+              </div>
+              <div>
+                <label className={labelStyle}>Stock</label>
+                <input name="stock" type="number" value={form.stock} className={inputStyle} onChange={handleChange} required />
+              </div>
             </div>
           </div>
+
           <div>
-            <label className={labelStyle}>Description</label>
-            <textarea name="description" className={inputStyle} onChange={handleChange} rows={3} />
+            <label className={labelStyle}>Features (Separated by commas)</label>
+            <input name="features" value={form.features} className={inputStyle} onChange={handleChange} placeholder="OLED Display, 5G, 128GB" />
           </div>
+
           <div>
-            <label className={labelStyle}>Features (comma separated)</label>
-            <input name="features" className={inputStyle} onChange={handleChange} />
+            <label className={labelStyle}>Image Upload</label>
+            <div className="mt-2 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-2xl p-6 hover:bg-gray-50 transition-colors cursor-pointer relative">
+              <input type="file" accept="image/*" onChange={handleImage} className="absolute inset-0 opacity-0 cursor-pointer" />
+              {preview ? (
+                <img src={preview} className="h-40 w-40 object-contain rounded-lg" alt="Preview" />
+              ) : (
+                <div className="text-center">
+                  <UploadCloud className="mx-auto h-12 w-12 text-gray-400" />
+                  <p className="mt-2 text-sm text-gray-500">Click to upload product image</p>
+                </div>
+              )}
+            </div>
           </div>
-          <div>
-            <label className={labelStyle}>Image</label>
-            <input type="file" accept="image/*" onChange={handleImage} />
-            {preview && <img src={preview} className="mt-2 w-32 h-32 object-cover rounded" />}
-          </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="bg-blue-600 text-white py-2 px-4 rounded w-full"
+            className={`w-full py-4 rounded-xl font-bold text-white transition-all ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-200"
+            }`}
           >
-            {loading ? "Posting..." : "Add Mobile"}
+            {loading ? "Processing..." : "Publish Product"}
           </button>
         </form>
       </div>
