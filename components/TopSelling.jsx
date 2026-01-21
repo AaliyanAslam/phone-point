@@ -70,7 +70,7 @@ export default function MostSellingMobiles() {
       ))}
 
       {/* --- SEE MORE BUTTON --- */}
-      <div className="flex items-center justify-center min-w-[150px] sm:min-w-[200px] pr-4">
+      <div className="flex items-center justify-center min-w-37.5 sm:min-w-50 pr-4">
         <button
           onClick={() => router.push("/mobiles")} // or your target path
           className="group/btn flex flex-col items-center gap-3 transition-all duration-300 hover:scale-105"
