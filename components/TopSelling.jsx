@@ -1,0 +1,42 @@
+"use client";
+import MobileCard from "@/components/MobileCard";
+import { useMobiles } from "@/app/hooks/useMobile.js";
+
+// --- SKELETON COMPONENT ---
+const SkeletonCard = () => (
+  <div className="min-w-60 sm:min-w-70 md:min-w-[320px] animate-pulse">
+    <div className="bg-gray-200 h-48 w-full rounded-xl mb-4"></div>
+    <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+  </div>
+);
+
+export default function MostSellingMobiles() {
+  const { mobiles, loading } = useMobiles();
+
+  return (
+    <div className="p-6 mx-auto max-w-7xl">
+      <h2 className="text-2xl font-bold mb-6">
+        Most Selling Mobiles
+      </h2>
+
+      <div className="flex gap-4 overflow-x-auto pb-4 scroll-smooth scrollbar-hide">
+        
+        {loading ? (
+          Array.from({ length: 4 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))
+        ) : (
+          mobiles.map((mobile) => (
+            <div
+              key={mobile.id}
+              className="min-w-60 sm:min-w-70 md:min-w-[320px]"
+            >
+              <MobileCard mobile={mobile} />
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import AllMobiles from "@/components/AllMobiles";
+import AllMobiles from "@/components/TopSelling";
 import Hero from "@/components/Hero";
 
 export default function page() {

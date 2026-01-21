@@ -1,5 +1,6 @@
 "use client";
 import WhatsAppButton from "@/components/WhatsappBtn";
+import { Flame } from "lucide-react";
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -11,7 +12,7 @@ export default function MobileCard({ mobile }) {
     <div className={`group relative flex flex-col h-full  rounded-xl overflow-hidden  border  border-[#e5a8ec] ${inter.className}`}>
       
       {/* 1. VISUAL ANCHOR (IMAGE) */}
-      <div className="relative aspect-4/5 overflow-hidden ">
+      <div className="relative aspect-5/5 overflow-hidden ">
         {/* Soft gradient overlay for depth */}
         <div className="absolute inset-0 bg-linear-to-t from-black/5 to-transparent z-10 pointer-events-none" />
         
@@ -23,8 +24,8 @@ export default function MobileCard({ mobile }) {
 
         {/* FLOATING CHIPS */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-20">
-          <span className="backdrop-blur-md bg-white/80 dark:bg-slate-900/80 text-slate-900 dark:text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-sm border border-white/20 uppercase tracking-tighter">
-            New Arrival
+          <span className="backdrop-blur-md bg-white/5  text-slate-900  text-[10px] font-bold px-3 py-1.5 rounded-full shadow-sm border border-white/20 uppercase tracking-tighter">
+           <Flame fill="red" size={14}  className="inline mr-1 text-red-600" /> Hot selling
           </span>
           
           {mobile.stock > 0 && mobile.stock <= 5 && (
@@ -46,7 +47,7 @@ export default function MobileCard({ mobile }) {
   "
 >
 
-        <div className="space-y-1 mb-4">
+        <div className="space-y-1 mb-1">
           <p className="text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-[0.2em]">
             {mobile.brand}
           </p>
@@ -56,13 +57,13 @@ export default function MobileCard({ mobile }) {
         </div>
 
         {/* 3. DYNAMIC FOOTER */}
-        <div className="mt-auto pt-2 border-t border-slate-100 dark:border-slate-800 flex items-end justify-between">
+        <div className="mt-auto pt-2 border-t-[0.5px] border-slate-700  flex items-end justify-between">
           <div className="flex flex-col">
             <span className="text-slate-400 dark:text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">
               Best Price
             </span>
             <div className="flex items-center gap-1">
-              <span className="text-xl font-semibold text-slate-900 dark:text-white">
+              <span className="text-sm font-semibold text-slate-900 dark:text-white">
                 ${mobile.price}
               </span>
             </div>
