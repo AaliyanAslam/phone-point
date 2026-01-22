@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Shop All', href: '/shop' },
+    { name: 'All Mobiles', href: '/all-mobiles' },
     { name: 'Deals', href: '/deals' },
   ];
 
