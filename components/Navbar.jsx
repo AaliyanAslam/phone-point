@@ -116,7 +116,7 @@ const Navbar = () => {
 
                 {/* SEARCH DROPDOWN */}
                 {showDropdown && (
-                  <div className="absolute top-full mt-2 right-0 w-72 bg-white shadow-2xl rounded-2xl border border-gray-100 overflow-hidden z-50">
+                  <div className={`absolute top-full mt-2 right-0 w-72 bg-white shadow-2xl rounded-2xl border border-gray-100 overflow-hidden z-50 ${inter.className}`}>
                     {searchResults.length > 0 ? (
                       <div className="p-2">
                         {searchResults.map((item) => (
