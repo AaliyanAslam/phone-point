@@ -110,7 +110,7 @@ export default function AddMobilePage() {
                 <label className={labelStyle}><Tag size={16} className="text-orange-500" /> Original Price (Old)</label>
                 <input 
                   name="oldPrice" 
-                  type="number" 
+                  type="text" 
                   value={form.oldPrice} 
                   className={inputStyle} 
                   onChange={handleChange} 
@@ -137,7 +137,7 @@ export default function AddMobilePage() {
             </div>
             <div>
               <label className={labelStyle}>Current Price ($)</label>
-              <input name="price" type="number" value={form.price} className={inputStyle} onChange={handleChange} required />
+              <input name="price" type="text" value={form.price} className={inputStyle} onChange={handleChange} required />
             </div>
             <div>
               <label className={labelStyle}>Stock</label>
