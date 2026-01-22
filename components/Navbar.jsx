@@ -1,8 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Menu, X, ShoppingCart, Search, User, Heart, ArrowRight } from 'lucide-react';
 import { Inter } from 'next/font/google';
+import { useMobiles } from "@/app/hooks/useMobile"; // Assuming your data hook is here
+import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,11 +12,48 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // --- NEW SEARCH STATES ---
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const searchRef = useRef(null);
+  const { mobiles } = useMobiles(); // Fetching your mobile data
+  const router = useRouter();
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // --- NEW SEARCH LOGIC ---
+  useEffect(() => {
+    if (searchQuery.length > 1) {
+      const filtered = mobiles?.filter(m => 
+        m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        m.brand.toLowerCase().includes(searchQuery.toLowerCase())
+      ).slice(0, 5); 
+      setSearchResults(filtered || []);
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+  }, [searchQuery, mobiles]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (searchRef.current && !searchRef.current.contains(e.target)) setShowDropdown(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSelectProduct = (id) => {
+    setSearchQuery("");
+    setShowDropdown(false);
+    router.push(`/mobile/${id}`);
+  };
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -64,13 +103,42 @@ const Navbar = () => {
 
             {/* Right: Actions */}
             <div className="flex items-center gap-1 xs:gap-2">
-              <div className="hidden sm:flex items-center relative group">
+              {/* --- SEARCH COMPONENT (UPDATED) --- */}
+              <div className="hidden sm:flex items-center relative group" ref={searchRef}>
                 <Search className="absolute left-3 text-gray-400 group-focus-within:text-[#822A63] transition-colors" size={18} />
                 <input 
                   type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search..." 
                   className="pl-9 pr-4 py-2 bg-gray-100/80 border-transparent focus:border-[#822A63]/30 focus:bg-white rounded-full text-sm focus:outline-none focus:ring-4 focus:ring-[#822A63]/5 w-32 lg:w-48 transition-all"
                 />
+
+                {/* SEARCH DROPDOWN */}
+                {showDropdown && (
+                  <div className="absolute top-full mt-2 right-0 w-72 bg-white shadow-2xl rounded-2xl border border-gray-100 overflow-hidden z-50">
+                    {searchResults.length > 0 ? (
+                      <div className="p-2">
+                        {searchResults.map((item) => (
+                          <button
+                            key={item.id}
+                            onClick={() => handleSelectProduct(item.id)}
+                            className="w-full flex items-center gap-3 p-2 hover:bg-gray-50 rounded-xl transition-colors text-left group"
+                          >
+                            <img src={item.image} alt="" className="w-8 h-8 object-contain bg-gray-50 rounded" />
+                            <div className="flex-1 overflow-hidden">
+                              <p className="text-xs font-bold text-gray-800 truncate">{item.name}</p>
+                              <p className="text-[10px] text-[#822A63] font-bold">Rs {item.price}</p>
+                            </div>
+                            <ArrowRight size={12} className="text-gray-300 group-hover:text-[#822A63] group-hover:translate-x-1 transition-all" />
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-4 text-center text-xs text-gray-500">No phones found</div>
+                    )}
+                  </div>
+                )}
               </div>
 
               <button className="p-2 text-gray-700 hover:text-[#822A63] hover:bg-[#822A63]/5 rounded-full transition-all hidden xs:flex">
@@ -114,6 +182,20 @@ const Navbar = () => {
             </button>
           </div>
 
+          {/* MOBILE SEARCH (NEW) */}
+          <div className="p-4 border-b">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              <input 
+                type="text" 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search phones..." 
+                className="w-full pl-10 pr-4 py-3 bg-gray-100 rounded-xl text-sm focus:outline-none"
+              />
+            </div>
+          </div>
+
           {/* Mobile Navigation */}
           <nav className="flex-1 px-4 py-6 overflow-y-auto space-y-1">
             {navLinks.map((link) => (
@@ -124,8 +206,7 @@ const Navbar = () => {
                 className="group flex items-center justify-between p-4 rounded-xl transition-all hover:bg-[#822A63]/5"
               >
                 <span className={`text-sm xs:text-lg font-medium text-gray-700 group-hover:text-[#822A63] transition-colors ${inter.className}`}>
-                
-    {link.name}
+                  {link.name}
                 </span>
                 <ArrowRight size={18} className="text-[#822A63] opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
               </Link>
