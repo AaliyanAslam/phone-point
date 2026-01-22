@@ -151,8 +151,8 @@ const Navbar = () => {
               </button>
               <button className="p-2 text-gray-700 hover:text-[#822A63] hover:bg-[#822A63]/5 rounded-full transition-all relative">
                 <ShoppingCart size={22} />
-                <span className="absolute top-1 right-1 bg-[#822A63] text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full ring-2 ring-white">
-                  3
+                <span className="absolute top-1 right-1 bg-[#e72203] text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full ring-2 ring-white">
+                  0
                 </span>
               </button>
             </div>
