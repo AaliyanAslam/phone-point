@@ -38,7 +38,7 @@ const ProductPage = async ({ params }) => {
         </Link>
       </div>
 
-      <div className="w-full max-w-6xl bg-white rounded-2xl xs:rounded-3xl shadow-xl overflow-hidden">
+      <div className="w-full max-w-6xl bg-white rounded-2xl xs:rounded-3xl  overflow-hidden">
         <div className="flex flex-col lg:grid lg:grid-cols-12">
           
           {/* LEFT: IMAGE SECTION (Col-5 on Desktop) */}
