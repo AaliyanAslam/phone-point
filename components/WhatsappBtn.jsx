@@ -33,7 +33,7 @@ export default function WhatsAppButton({ name, price }) {
           group-hover:rotate-12
         "
       />
-      <span className="whitespace-nowrap">
+      <span className="whitespace-nowrap text-xs sm:text-sm font-bold">
         Order via WhatsApp
       </span>
     </a>
