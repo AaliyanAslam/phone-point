@@ -4,6 +4,8 @@ import MobileCard from "@/components/MobileCard";
 import { useMobiles } from "@/app/hooks/useMobile.js";
 import { Inter } from "next/font/google";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +21,7 @@ const SkeletonCard = () => (
 export default function DealsMobiles() {
   const { mobiles, loading } = useMobiles();
   const scrollRef = useRef(null);
+  const router = useRouter();
 
   // 🔥 FILTER DEALS CATEGORY
   const dealMobiles = mobiles?.filter(
@@ -79,6 +82,27 @@ export default function DealsMobiles() {
               No deals available right now
             </p>
           )}
+            <div className="flex items-center justify-center min-w-37.5 sm:min-w-50 pr-4">
+        <button
+          onClick={() => router.push("/all-mobiles")} // or your target path
+          className="group/btn flex flex-col items-center gap-3 transition-all duration-300 hover:scale-105"
+        >
+          <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-linear-to-br from-[#2C0741] to-[#6348A6] flex items-center justify-center shadow-lg group-hover/btn:shadow-purple-500/40 text-white">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" viewBox="0 0 24 24" 
+              strokeWidth={2.5} 
+              stroke="currentColor" 
+              className="w-6 h-6 sm:w-8 sm:h-8 group-hover/btn:translate-x-1 transition-transform"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </div>
+          <span className="text-xs sm:text-sm font-bold bg-linear-to-r from-[#2C0741] to-[#6348A6] bg-clip-text text-transparent uppercase tracking-widest">
+            See More
+          </span>
+        </button>
+      </div>
         </div>
 
         {/* RIGHT */}

@@ -54,8 +54,8 @@ export default function AddMobilePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...form,
-          price: Number(form.price),
-          oldPrice: form.category === "deals" ? Number(form.oldPrice) : null,
+          price: (form.price),
+          oldPrice: form.category === "deals" ? (form.oldPrice) : null,
           dealDuration: form.category === "deals" ? `${form.dealDuration} Day(s)` : null,
           stock: Number(form.stock),
           features: form.features.split(",").map((f) => f.trim()),

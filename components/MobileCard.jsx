@@ -32,7 +32,8 @@ export default function MobileCard({ mobile }) {
         
       <Link href={`/mobile/${mobile.id}`} className="block w-full h-full relative">
         <Image
-        fill
+        height={100}
+        width={100}
           src={mobile.image}
           alt={mobile.name}
           className="w-full h-full object-contain p-4 sm:p-8 transition-transform duration-500 group-hover:scale-105"
